@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="https://www.w3.org/2005/Atom" xmlns:dc="https://purl.org/dc/elements/1.1/">
   <channel>
-    <title>Chalk</title>
+    <title>Chippy's Blog</title>
     <description></description>
-    <link>http://chalk.nielsenramon.com</link>
-    <atom:link href="http://chalk.nielsenramon.com/feed.xml" rel="self" type="application/rss+xml" />
+    <link>http://blog.chippy.in</link>
+    <atom:link href="http://blog.chippy.in/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
-        <title>Access - 10.10.10.98</title>
-        <description>A write-up of Hack the Box's Access machine.</description>
-        <pubDate>Tue, 07 Apr 2020 00:00:00 -0700</pubDate>
-        <link>http://chalk.nielsenramon.com/posts/htb-access</link>
-        <guid isPermaLink="true">http://chalk.nielsenramon.com/posts/htb-access</guid>
+        <title>Introducing chalk</title>
+        <description>Chalk is a high quality, completely customizable, performant and 100% free blog template for Jekyll.</description>
+        <pubDate>Sat, 23 Dec 2017 00:00:00 -0800</pubDate>
+        <link>http://blog.chippy.in/posts/introducing-chalk</link>
+        <guid isPermaLink="true">http://blog.chippy.in/posts/introducing-chalk</guid>
       </item>
     
       <item>
-        <title>Irked - 10.10.10.117</title>
-        <description>A write-up of Hack the Box's Irked machine.</description>
-        <pubDate>Wed, 01 Apr 2020 00:00:00 -0700</pubDate>
-        <link>http://chalk.nielsenramon.com/posts/htb-irked</link>
-        <guid isPermaLink="true">http://chalk.nielsenramon.com/posts/htb-irked</guid>
+        <title>How to configure Chalk</title>
+        <description>Learn more about the config file for Chalk and how to set it up properly.</description>
+        <pubDate>Fri, 22 Dec 2017 00:00:00 -0800</pubDate>
+        <link>http://blog.chippy.in/posts/configuring-chalk</link>
+        <guid isPermaLink="true">http://blog.chippy.in/posts/configuring-chalk</guid>
+      </item>
+    
+      <item>
+        <title>Chalk sample post with all elements</title>
+        <description>Have a look at all the predesigned elements you can use in Chalk.</description>
+        <pubDate>Thu, 21 Dec 2017 00:00:00 -0800</pubDate>
+        <link>http://blog.chippy.in/posts/chalk-sample-post-with-all-elements</link>
+        <guid isPermaLink="true">http://blog.chippy.in/posts/chalk-sample-post-with-all-elements</guid>
       </item>
     
   </channel>

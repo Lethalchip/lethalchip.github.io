@@ -1,1 +1,5 @@
-Sitemap: http://chalk.nielsenramon.com/sitemap.xml
+# www.robotstxt.org/
+
+# Allow crawling of all content
+User-agent: *
+Disallow:
